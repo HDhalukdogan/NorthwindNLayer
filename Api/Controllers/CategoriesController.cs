@@ -1,53 +1,53 @@
-﻿using Core.Entities;
-using Infrastructure.Data;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Core.Entities;
+using Infrastructure.Data;
 
 namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
         private readonly NorthwindContext _context;
 
-        public ProductsController(NorthwindContext context)
+        public CategoriesController(NorthwindContext context)
         {
             _context = context;
         }
 
-        // GET: api/Products
+        // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Categories.ToListAsync();
         }
 
-        // GET: api/Products/5
+        // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(short id)
+        public async Task<ActionResult<Category>> GetCategory(short id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var category = await _context.Categories.FindAsync(id);
 
-            if (product == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return product;
+            return category;
         }
 
-        // PUT: api/Products/5
+        // PUT: api/Categories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(short id, Product product)
+        public async Task<IActionResult> PutCategory(short id, Category category)
         {
-            if (id != product.ProductId)
+            if (id != category.CategoryId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            _context.Entry(category).State = EntityState.Modified;
 
             try
             {
@@ -55,7 +55,7 @@ namespace Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!CategoryExists(id))
                 {
                     return NotFound();
                 }
@@ -68,19 +68,19 @@ namespace Api.Controllers
             return NoContent();
         }
 
-        // POST: api/Products
+        // POST: api/Categories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<Category>> PostCategory(Category category)
         {
-            _context.Products.Add(product);
+            _context.Categories.Add(category);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (ProductExists(product.ProductId))
+                if (CategoryExists(category.CategoryId))
                 {
                     return Conflict();
                 }
@@ -90,28 +90,28 @@ namespace Api.Controllers
                 }
             }
 
-            return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
+            return CreatedAtAction("GetCategory", new { id = category.CategoryId }, category);
         }
 
-        // DELETE: api/Products/5
+        // DELETE: api/Categories/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(short id)
+        public async Task<IActionResult> DeleteCategory(short id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            _context.Products.Remove(product);
+            _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ProductExists(short id)
+        private bool CategoryExists(short id)
         {
-            return _context.Products.Any(e => e.ProductId == id);
+            return _context.Categories.Any(e => e.CategoryId == id);
         }
     }
 }
