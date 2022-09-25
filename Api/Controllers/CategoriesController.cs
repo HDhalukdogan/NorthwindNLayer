@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Core.Entities;
 using Infrastructure.Data;
+using Core.Interfaces;
 
 namespace Api.Controllers
 {
@@ -10,24 +11,27 @@ namespace Api.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly NorthwindContext _context;
+        private readonly IGenericRepository<Category> _genericRepository;
 
-        public CategoriesController(NorthwindContext context)
+        public CategoriesController(NorthwindContext context, IGenericRepository<Category> genericRepository)
         {
             _context = context;
+            _genericRepository = genericRepository;
         }
 
         // GET: api/Categories
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            return await _context.Categories.ToListAsync();
+            var categories = await _genericRepository.ListAllAsync();
+            return Ok(categories);
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetCategory(short id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = await _genericRepository.GetAsync(c => c.CategoryId == id);
 
             if (category == null)
             {
