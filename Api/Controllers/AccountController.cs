@@ -25,7 +25,13 @@ namespace Api.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> Register(RegisterDto registerDto)
         {
-            var user = new AppUser { UserName = registerDto.Name, Email = registerDto.Email };
+            var user = new AppUser
+            {
+                UserName = registerDto.Name,
+                Email = registerDto.Email,
+                City = registerDto.City,
+                BirthDate = registerDto.BirthDate
+            };
 
             IdentityResult result = await _userManager.CreateAsync(user, registerDto.Password);
 
@@ -91,7 +97,7 @@ namespace Api.Controllers
             return StatusCode(201);
         }
         [HttpPut("updaterole/{roleName}")]
-        public async Task<IActionResult> UpdateRole(string roleName,string updatedName)
+        public async Task<IActionResult> UpdateRole(string roleName, string updatedName)
         {
             var role = await _roleManager.FindByNameAsync(roleName);
             if (role == null)
