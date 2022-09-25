@@ -4,7 +4,7 @@ using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Api.Data
+namespace Infrastructure.Data
 {
     public partial class NorthwindContext : DbContext
     {

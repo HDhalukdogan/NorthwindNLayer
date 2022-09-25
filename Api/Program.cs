@@ -1,8 +1,8 @@
-using Api.Data;
-using Api.Entities;
-using Api.Identity;
-using Api.Interfaces;
-using Api.Services;
+using Core.Entities;
+using Core.Interfaces;
+using Infrastructure.Data;
+using Infrastructure.Identity;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

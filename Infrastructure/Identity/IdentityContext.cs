@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Identity
+namespace Infrastructure.Identity
 {
     public class IdentityContext : IdentityDbContext<AppUser, AppRole, string,
         IdentityUserClaim<string>, AppUserRole, IdentityUserLogin<string>,
