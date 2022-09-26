@@ -48,6 +48,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<ITokenService,TokenService>();
 builder.Services.AddScoped<IProductRepository,ProductRepository>();
 builder.Services.AddScoped<ISupplierRepository,SupplierRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
 
 var app = builder.Build();
